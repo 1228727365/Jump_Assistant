@@ -1,0 +1,25 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+
+}
+
+rootProject.name = "跳一跳"
+include ':app'

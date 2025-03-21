@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_weight="1"
+		android:background="#27F3DEDE">
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:background="#27F3DEDE"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:layout_weight="1"
+			android:orientation="vertical">
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="点击屏幕任意位置获取屏幕坐标"
+				android:textSize="20sp"
+				android:layout_marginTop="20dp"
+				android:fontFamily="@font/font"
+				android:textColor="#000000"/>
+		<TextView
+				android:id="@+id/xy"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="当前X,Y坐标"
+				android:textSize="20sp"
+				android:layout_marginTop="5dp"
+				android:fontFamily="@font/font"
+				android:textColor="#000000"/>
+		<com.google.android.material.card.MaterialCardView
+				android:id="@+id/cmxy"
+				android:layout_width="match_parent"
+				android:layout_height="1000dp"
+				android:layout_weight="1"
+				app:cardCornerRadius="0dp"
+				app:cardBackgroundColor="#27F3DEDE"/>
+	</LinearLayout>
+</LinearLayout>
