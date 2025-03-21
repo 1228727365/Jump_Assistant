@@ -4,7 +4,7 @@
 
 一款简单易用的微信跳一跳辅助工具，采用Android无障碍长按实现功能，免root。<span style="color:red">作者qq：1228727365</span>
 
-<center><img src="./image.png" style="width:80%"></center>
+<center><img src=".IMG/image.png" style="width:80%"></center>
 
 ### ✅ 思路
 根据用户手绘两个点的线条，无障碍根据线条的长度调节长按的时间
