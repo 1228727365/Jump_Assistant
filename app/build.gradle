@@ -4,28 +4,6 @@ plugins {
 
 android {
 
-    splits {
-        // Configures multiple APKs based on ABI.
-        abi {
-            //由于分包是仅针对release，当debug时是不需要的，所以要区分出来
-            def isReleaseBuild = false
-            gradle.startParameter.taskNames.find {
-                // Enable split for release builds in different build flavors
-                // (assemblePaidRelease, assembleFreeRelease, etc.).
-                if (it ==~ /:app:assemble.*Release/) {
-                    isReleaseBuild = true
-                    return true // break
-                }
-
-                return false // continue
-            }
-            enable isReleaseBuild
-            reset()
-            include "armeabi-v7a", "arm64-v8a"
-            universalApk true
-        }
-    }
-
     namespace 'com.crawling.studio'
     compileSdk 34
 
@@ -46,8 +24,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
 
     }
 
@@ -67,5 +45,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.github.getActivity:EasyWindow:10.62'
     implementation 'com.github.GrenderG:Toasty:1.5.2'
-    implementation 'com.github.wuzhendev:android-xcolorpicker:1.0.0'
+    implementation 'com.jaredrummler:colorpicker:1.1.0'
 }
