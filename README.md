@@ -67,15 +67,18 @@
 ---
 
 ## 🎨 截图预览
-
-| 跳跃辅助工具截图 | 应用界面截图 |
-|------------------|--------------|
-| ![截图1](https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true =250x200) | ![截图2](https://github.com/1228727365/Jump_Assistant/blob/master/img/屏幕截图_20250813_211522.png?raw=true =250x200) |
-
-<style>
-  table { border: none; }
-  table td { border: none; padding: 0 10px; } /* 10px 为两张图片的间距 */
-</style>
+<div style="display: flex; gap: 20px; justify-content: center;">
+  <img 
+    src="https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true" 
+    alt="跳跃辅助工具截图" 
+    style="width: 300px; height: auto; object-fit: contain;"
+  >
+  <img 
+    src="https://github.com/1228727365/Jump_Assistant/blob/master/img/屏幕截图_20250813_211522.png?raw=true" 
+    alt="应用界面截图" 
+    style="width: 300px; height: auto; object-fit: contain;"
+  >
+</div>
 
 
 ---
