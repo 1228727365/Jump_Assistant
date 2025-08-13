@@ -68,11 +68,15 @@
 
 ## 🎨 截图预览
 
-> （建议添加 2-3 张应用界面截图，展示绘图、设置页、主题颜色等）
-<center><img src="https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true" style="width:80%"></center>
+| 跳跃辅助工具截图 | 应用界面截图 |
+|------------------|--------------|
+| ![截图1](https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true =250x200) | ![截图2](https://github.com/1228727365/Jump_Assistant/blob/master/img/屏幕截图_20250813_211522.png?raw=true =250x200) |
 
-![截图1](https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true)
-![截图2](https://github.com/1228727365/Jump_Assistant/blob/master/img/屏幕截图_20250813_211522.png?raw=true)
+<style>
+  table { border: none; }
+  table td { border: none; padding: 0 10px; } /* 10px 为两张图片的间距 */
+</style>
+
 
 ---
 
