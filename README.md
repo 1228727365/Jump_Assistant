@@ -25,7 +25,7 @@
 
 ## 🚀 使用方法
 
-1. 下载并安装 APK（见 [Releases](https://github.com/1228727365/Jump_Assistant/blob/master/app/release/app-release.apk?raw=true)）
+1. 下载并安装 APK（见 [Releases](https://github.com/1228727365/Jump_Assistant/blob/master/app/release/app-release.apk)）
 2. 打开应用，授予 **无障碍服务权限**
 3. 启动微信跳一跳小游戏
 4. 激活悬浮窗，用手指在屏幕上绘制从起点到终点的连线
