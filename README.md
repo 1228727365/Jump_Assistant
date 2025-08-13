@@ -92,7 +92,7 @@
 ## 📬 联系作者
 
 - QQ：[1228727365](http://wpa.qq.com/msgrd?v=3&uin=1228727365&site=qq&menu=yes)（点击联系）
-- Email：map@example.com（可选）
+- Email：maojas@163.com（可选）
 - GitHub：[M](https://github.com/1228727365)
 
 ---
