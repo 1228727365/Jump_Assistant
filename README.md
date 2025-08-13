@@ -69,9 +69,10 @@
 ## 🎨 截图预览
 
 > （建议添加 2-3 张应用界面截图，展示绘图、设置页、主题颜色等）
+<center><img src="https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true" style="width:80%"></center>
 
-![截图1](screenshots/screenshot1.png)
-![截图2](screenshots/screenshot2.png)
+![截图1](https://github.com/1228727365/Jump_Assistant/blob/master/img/image.png?raw=true)
+![截图2](https://github.com/1228727365/Jump_Assistant/blob/master/img/屏幕截图_20250813_211522.png?raw=true)
 
 ---
 
@@ -84,8 +85,8 @@
 ## 📬 联系作者
 
 - QQ：[1228727365](http://wpa.qq.com/msgrd?v=3&uin=1228727365&site=qq&menu=yes)（点击联系）
-- Email：your_email@example.com（可选）
-- GitHub：[@yourusername](https://github.com/yourusername)
+- Email：map@example.com（可选）
+- GitHub：[M](https://github.com/1228727365)
 
 ---
 
