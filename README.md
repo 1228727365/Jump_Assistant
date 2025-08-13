@@ -58,10 +58,10 @@
   implementation 'com.github.GrenderG:Toasty:1.5.2'
   ```
 
-- [`android-xcolorpicker`](https://github.com/wuzhendev/android-xcolorpicker)  
+- [`ColorPreference`](https://github.com/jaredrummler/ColorPicker)  
   颜色选择器组件，用于自定义绘制线条与界面颜色  
   ```gradle
-  implementation 'com.github.wzhendev:android-xcolorpicker:1.0.0'
+  implementation 'com.jaredrummler:colorpicker:1.1.0'
   ```
 
 ---
