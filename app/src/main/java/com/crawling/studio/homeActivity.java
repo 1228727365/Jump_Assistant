@@ -3,7 +3,6 @@ package com.crawling.studio;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -20,19 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.core.content.ContextCompat;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 import com.hjq.window.EasyWindow;
-import com.xcolorpicker.android.OnColorSelectListener;
-import com.xcolorpicker.android.XColorPicker;
+import com.jaredrummler.android.colorpicker.ColorPickerDialog;
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.jaredrummler.android.colorpicker.ColorShape;
 
 import java.io.*;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-
-public class homeActivity extends AppCompatActivity {
+public class homeActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
     /**
      * 黑色唤醒广播的action
@@ -58,6 +55,8 @@ public class homeActivity extends AppCompatActivity {
     private MaterialSwitch v1, v2, v3, v4;
     private static final int REQUEST_ACCESSIBILITY = 1;
     private static final int REQUEST_CODE_FLOATING_WINDOW = 123; // 自定义的请求码
+    private static final int COLOR_PICKER_CIRCLE_HEAD = 100; // 圆头颜色选择器标识
+    private static final int COLOR_PICKER_LINE = 101; // 线条颜色选择器标识
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,47 +139,9 @@ public class homeActivity extends AppCompatActivity {
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                View dialogView = LayoutInflater.from(homeActivity.this).inflate(R.layout.color, null);
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(homeActivity.this);
-                builder.setView(dialogView);
-
-                OnColorSelectListener colorSelectListener = new OnColorSelectListener() {
-                    @Override
-                    public void onColorSelected(int newColor, int oldColor) {
-                        MaterialCardView cardView = dialogView.findViewById(R.id.color_car);
-                        Log.w(TAG, String.valueOf(oldColor));
-                        cardView.setCardBackgroundColor(oldColor);
-                        color1.setCardBackgroundColor(oldColor);
-                        setFile(String.valueOf(newColor), "$圆头颜色.so");
-                        圆头颜色 = oldColor;
-                    }
-
-                };
-
-                XColorPicker xColorPicker = (XColorPicker) dialogView.findViewById(R.id.XColorPicker);
-                xColorPicker.setOnColorSelectListener(colorSelectListener);
-
-                builder.setTitle("设置圆头颜色")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ;
-                            }
-                        })
-                        .setNegativeButton("恢复默认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteFile("$圆头颜色.so");
-                                color1.setCardBackgroundColor(-16777216);
-                                圆头颜色 = -16777216;
-                            }
-                        })
-                        .show();
-
+                // 显示圆头颜色选择器
+                showColorPicker(COLOR_PICKER_CIRCLE_HEAD, 圆头颜色, "设置圆头颜色");
             }
-
         });
 
 
@@ -196,47 +157,9 @@ public class homeActivity extends AppCompatActivity {
         cardView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                View dialogView = LayoutInflater.from(homeActivity.this).inflate(R.layout.color, null);
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(homeActivity.this);
-                builder.setView(dialogView);
-
-                OnColorSelectListener colorSelectListener = new OnColorSelectListener() {
-                    @Override
-                    public void onColorSelected(int newColor, int oldColor) {
-                        MaterialCardView cardView = dialogView.findViewById(R.id.color_car);
-                        Log.w(TAG, String.valueOf(oldColor));
-                        cardView.setCardBackgroundColor(oldColor);
-                        color2.setCardBackgroundColor(oldColor);
-                        Log.w(TAG, String.valueOf(oldColor));
-                        线条颜色 = oldColor;
-                        setFile(String.valueOf(oldColor), "$线条颜色.so");
-                    }
-                };
-
-                XColorPicker xColorPicker = (XColorPicker) dialogView.findViewById(R.id.XColorPicker);
-                xColorPicker.setOnColorSelectListener(colorSelectListener);
-
-                builder.setTitle("设置线条颜色")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setNegativeButton("恢复默认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteFile("$线条颜色.so");
-                                线条颜色 = -65534;
-                                color2.setCardBackgroundColor(-65534);
-                            }
-                        })
-                        .show();
-
+                // 显示线条颜色选择器
+                showColorPicker(COLOR_PICKER_LINE, 线条颜色, "设置线条颜色");
             }
-
         });
 
 
@@ -437,7 +360,6 @@ public class homeActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
@@ -461,68 +383,48 @@ public class homeActivity extends AppCompatActivity {
         Intent blackIntent = new Intent();
         blackIntent.setAction(BLACK_WAKE_ACTION);
         sendBroadcast(blackIntent);
+    }
 
-		
+    // 显示颜色选择器
+    private void showColorPicker(int identifier, int initialColor, String title) {
+        ColorPickerDialog.newBuilder()
+                .setDialogType(ColorPickerDialog.TYPE_CUSTOM)
+                .setAllowPresets(true)
+                .setDialogId(identifier)
+                .setColor(initialColor)
+                .setShowAlphaSlider(true) // 显示透明度滑块
+                .setColorShape(ColorShape.CIRCLE) // 圆形选择器
+                //.setTitle(title)
+                .show(this);
+    }
 
+    // 颜色选择结果回调
+    @Override
+    public void onColorSelected(int dialogId, int color) {
+        MaterialCardView colorCard;
+        String fileName;
 
-		
-		/*
-		LinearLayout linearLayout = findViewById(R.id.wrap);
-		linearLayout.setOnTouchListener(this);
-		
-		Button button = findViewById(R.id.button);
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MainActivity.this)) {
-					Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + MainActivity.this.getPackageName()));
-					startActivityForResult(intent, REQUEST_CODE_FLOATING_WINDOW);
-				} else {
-					logbt();
-				}
-			}
-			
-		});
-		
-		//点击指定控件
-		findViewById(R.id.bt_main_DianJi).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AccessibilityNodeInfo ces = HongBaoService.mService.findFirst(AbstractTF.newText("测试控件", true));
-				if (ces == null) {
-					Utils.toast("找测试控件失败");
-					return;
-				}
-				HongBaoService.clickView(ces);
-			}
-		});
-		
-		//用手势长按指定控件
-		/*findViewById(R.id.bt_main_ChangAn).setOnClickListener(new View.OnClickListener() {
-			@TargetApi(Build.VERSION_CODES.N)
-			@Override
-			public void onClick(View v) {
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-					Toast.makeText(MainActivity.this, "7.0及以上才能使用手势", Toast.LENGTH_SHORT).show();
-					return;
-				}
-				AccessibilityNodeInfo ces = HongBaoService.mService.findFirst(AbstractTF.newText("测试控件", true));
-				if (ces == null) {
-					Utils.toast("找测试控件失败");
-					return;
-				}
-				//ces.performAction(AccessibilityNodeInfo.ACTION_LONG_CLICK);//长按
-				//这里为了示范手势的效果
-				Rect absXY = new Rect();
-				ces.getBoundsInScreen(absXY);
-				HongBaoService.mService.dispatchGestureLongClick(557, 2057, 5000);
-//                HongBaoService.mService.dispatchGestureClick(absXY.left + (absXY.right - absXY.left) / 2, absXY.top + (absXY.bottom - absXY.top) / 2);//手势点击效果
-				//手势长按效果
-				//控件正中间
-				//HongBaoService.mService.dispatchGestureLongClick(absXY.left + (absXY.right - absXY.left) / 2, absXY.top + (absXY.bottom - absXY.top) / 2);
-				
-			}
-		});*/
+        // 根据对话框ID判断是哪种颜色设置
+        if (dialogId == COLOR_PICKER_CIRCLE_HEAD) {
+            colorCard = findViewById(R.id.carcolor1);
+            fileName = "$圆头颜色.so";
+            圆头颜色 = color;
+        } else if (dialogId == COLOR_PICKER_LINE) {
+            colorCard = findViewById(R.id.carcolor2);
+            fileName = "$线条颜色.so";
+            线条颜色 = color;
+        } else {
+            return;
+        }
+
+        // 更新UI和保存颜色
+        colorCard.setCardBackgroundColor(color);
+        setFile(String.valueOf(color), fileName);
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
+        // 对话框消失时的处理（如果需要）
     }
 
 
@@ -750,10 +652,9 @@ public class homeActivity extends AppCompatActivity {
 
     private String split(String nr, String zf, int len) {
         String[] parts = nr.split(zf);
-
-        String before = parts[len];
-        return before;
+        if (parts.length > len) {
+            return parts[len];
+        }
+        return "";
     }
-
-
 }
